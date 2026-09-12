@@ -188,7 +188,7 @@ SDK references: [initialization](https://respan.ai/docs/sdks/python-sdk/initiali
 
 ## Nango CI demo
 
-Open `http://127.0.0.1:8080/static/integrations.html` for connected accounts, provider discovery, catalog actions, and evidence publishing.
+Open the [deployed integrations dashboard](https://swarmci.vercel.app/static/integrations.html) for connected accounts, provider discovery, catalog actions, and evidence publishing.
 
 - Live repository: https://github.com/drPod/swarmci-demo
 - Verified fixture issue with animated replay and MP4: https://github.com/drPod/swarmci-demo/issues/1
@@ -207,7 +207,7 @@ The Nango configuration uses `NANGO_SECRET_KEY`, `NANGO_CONNECTION_ID`, and `NAN
 
 ## Real Penpot review (verified local evidence)
 
-Open **http://localhost:8080/static/review.html** from the atlas's **Penpot review** link. This view uses GitHub Primer and the existing tiny-browser-agent media components. It shows the reported issue, tested variant, full failure/control recordings, screenshot comparison, per-attempt outcomes, and the GitHub review links.
+Open the **[live Penpot review](https://swarmci.vercel.app/static/review.html)** from the atlas's **Penpot review** link. This view uses GitHub Primer and the existing tiny-browser-agent media components. It shows the reported issue, tested variant, full failure/control recordings, screenshot comparison, per-attempt outcomes, and the GitHub review links.
 
 - Regression PR beside real Penpot source: https://github.com/drPod/penpot/pull/1
 - Evidence on the original issue: https://github.com/penpot/penpot/issues/11656#issuecomment-5649227950
