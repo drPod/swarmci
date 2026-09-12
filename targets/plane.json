@@ -1,0 +1,20 @@
+{
+  "name": "Plane · autonomous workflow exploration",
+  "url": "http://localhost:8090",
+  "objective": "Explore this project management app for broken user workflows. A disposable workspace contains Launch Mission and three work items. Explore navigation, work-item edits, menus, filters, layouts, archive/restore, cycles, modules, pages, cancel/reopen, Back and reload in varied orders. Start by opening Launch checklist, mark it Done, archive it, and inspect Archives. Do not delete the workspace or project or sign out. Use only the existing disposable account. Report observations accurately; a suspicious message is not proof of a bug.",
+  "isolation": "account",
+  "fixture_adapter": "plane",
+  "seed_ready": true,
+  "assertions": [
+    {"name": "Plane archive consistency", "kind": "plane_archive"}
+  ],
+  "exploration_objectives": [
+    "Open Launch checklist. Set its status to Done. Archive it using the work-item menu, confirm, and inspect project Archives.",
+    "Explore project filters and layouts. Change priority or status, clear filters, use Back and reload, and check the item remains consistent.",
+    "Open a work item, edit its description, cancel or close, reopen, and try undo then reload. Inspect whether the saved text matches the action.",
+    "Explore cycles and modules: create one, add an existing work item, change its status, and inspect the item from the project view.",
+    "Explore Pages, rich text controls, links, and keyboard navigation. Close and reopen dialogs with Escape.",
+    "Explore archive and restore in different orders, including reload and navigation Back between operations."
+  ],
+  "notes": "Real Plane Community v1.2.3. Start scripts/plane_local.py and the fixture broker first. Each session creates a fresh user/workspace/project and deletes only that identity on close. Archive consistency is checked against backend state and the application's archive listing. Other observations remain candidates until a specific oracle verifies them. Email flows require AgentMail and outbound SMTP configuration."
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "mkdir -p public/static && cp -R swarmci/static/. public/static/ && cp swarmci/static/index.html public/index.html && cp swarmci/static/fixture.html public/fixture.html",
+  "outputDirectory": "public",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://swarmci-api.40-160-241-64.sslip.io/api/:path*"
+    },
+    {
+      "source": "/artifacts/:path*",
+      "destination": "https://swarmci-api.40-160-241-64.sslip.io/artifacts/:path*"
+    },
+    {
+      "source": "/fixture",
+      "destination": "/fixture.html"
+    }
+  ]
+}

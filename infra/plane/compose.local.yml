@@ -1,0 +1,20 @@
+services:
+  plane-fixtures:
+    extends:
+      file: compose.upstream.yml
+      service: api
+    command: ["gunicorn", "--bind", "0.0.0.0:8092", "--workers", "4", "--timeout", "60", "--chdir", "/swarm-fixtures", "fixture_wsgi:application"]
+    environment:
+      PYTHONPATH: /code:/swarm-fixtures
+    volumes: !override
+      - ./:/swarm-fixtures:ro
+      - ../../.secrets/plane-fixtures-token:/run/secrets/swarm-fixture-token:ro
+    ports:
+      - "127.0.0.1:8092:8092"
+    depends_on:
+      - api
+  plane-minio:
+    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
+  proxy:
+    ports: !override
+      - "127.0.0.1:8090:80"

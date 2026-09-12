@@ -1,0 +1,29 @@
+# Run on a Linux NVIDIA host with two GPUs. No cloud resources are provisioned here.
+# HF_TOKEN needs access to the Gemma model weights. Keep endpoints behind a firewall/SSH tunnel.
+services:
+  browser-model:
+    image: vllm/vllm-openai:v0.12.0
+    ports: ['127.0.0.1:8001:8000']
+    ipc: host
+    environment:
+      HF_TOKEN: ${HF_TOKEN:-}
+    volumes: ['huggingface:/root/.cache/huggingface']
+    command: ['--model', 'browser-use/bu-30b-a3b-preview', '--max-model-len', '16384', '--max-num-seqs', '4', '--api-key', '${BU_API_KEY:-local}']
+    deploy:
+      resources:
+        reservations:
+          devices: [{driver: nvidia, device_ids: ['0'], capabilities: [gpu]}]
+  gemma:
+    image: vllm/vllm-openai:v0.12.0
+    ports: ['127.0.0.1:8002:8000']
+    ipc: host
+    environment:
+      HF_TOKEN: ${HF_TOKEN:-}
+    volumes: ['huggingface:/root/.cache/huggingface']
+    command: ['--model', 'google/gemma-3-12b-it', '--max-model-len', '8192', '--max-num-seqs', '4', '--api-key', '${GEMMA_API_KEY:-local}']
+    deploy:
+      resources:
+        reservations:
+          devices: [{driver: nvidia, device_ids: ['1'], capabilities: [gpu]}]
+volumes:
+  huggingface:

@@ -1,0 +1,18 @@
+[Unit]
+Description=SwarmCI backend and browser coordinator
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/Coding/gradient-hackathon
+Environment=PATH=/home/coder/Coding/gradient-hackathon/.venv/bin:/home/coder/.bun/bin:/home/coder/.local/bin:/home/coder/.npm-global/bin:/usr/local/bin:/usr/bin:/bin
+Environment=DATA_DIR=/home/coder/.local/share/swarmci/data
+Environment=FIXTURE_URL=http://127.0.0.1:8080/fixture
+ExecStart=%h/Coding/gradient-hackathon/.venv/bin/swarmci serve --host 0.0.0.0 --port 8080
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=45
+
+[Install]
+WantedBy=default.target

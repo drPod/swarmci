@@ -1,0 +1,10 @@
+{
+  "name": "Component Lab · nested overrides",
+  "url": "http://127.0.0.1:8080/fixture",
+  "objective": "Explore component grouping, duplication, swap, reset, and undo in different orders.",
+  "isolation": "fixture",
+  "state_probe": "() => window.__swarmState()",
+  "failure_selector": "[data-testid=error]",
+  "assertions": [{"name": "Component editor remains visible", "kind": "visible", "selector": "#canvas"}],
+  "notes": "Controlled fixture inspired by Penpot #11656. This is not evidence of a Penpot reproduction."
+}

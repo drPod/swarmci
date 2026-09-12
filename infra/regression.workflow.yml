@@ -1,0 +1,53 @@
+name: SwarmCI regression
+on:
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: Isolated test deployment URL
+        required: true
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TARGET_URL: ${{ inputs.target_url || vars.SWARMCI_TARGET_URL }}
+      ANONYMIZED_TELEMETRY: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: uv run playwright install --with-deps chromium
+      - name: Replay recorded regressions
+        shell: bash
+        run: |
+          if [[ -z "$TARGET_URL" ]]; then
+            echo 'Configure SWARMCI_TARGET_URL with an isolated test deployment.'
+            exit 2
+          fi
+          shopt -s nullglob
+          manifests=(regressions/*.json)
+          if (( ${#manifests[@]} == 0 )); then
+            echo 'No regression manifests. Export a verified finding from SwarmCI.'
+            exit 2
+          fi
+          status=0
+          for manifest in "${manifests[@]}"; do
+            uv run swarmci replay "$manifest" --target-url "$TARGET_URL" --output "artifacts/ci/$(basename "$manifest" .json)" || status=$?
+          done
+          exit "$status"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: swarmci-video-trace-junit
+          path: artifacts/ci/
+          retention-days: 14
+      - name: Job summary
+        if: always()
+        run: |
+          echo '## SwarmCI regression evidence' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Download the artifact for the video, Playwright trace, report, replay manifest, and JUnit results.' >> "$GITHUB_STEP_SUMMARY"

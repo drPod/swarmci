@@ -1,0 +1,6 @@
+[Unit]
+Description=SwarmCI disk monitoring and emergency reserve
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /home/coder/.local/share/swarmci/storage_monitor.py

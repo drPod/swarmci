@@ -1,0 +1,12 @@
+[Unit]
+Description=SwarmCI bu inference tunnel
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/ssh -NT -i %h/Coding/gradient-hackathon/.secrets/lambda_swarmci -o BatchMode=yes -o StrictHostKeyChecking=accept-new -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -L 127.0.0.1:8001:127.0.0.1:8000 ubuntu@209.20.159.239
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

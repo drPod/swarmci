@@ -1,0 +1,5 @@
+*
+!vercel.json
+!swarmci
+!swarmci/static
+!swarmci/static/**

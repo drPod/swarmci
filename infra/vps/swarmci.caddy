@@ -1,0 +1,5 @@
+http://swarmci-api.{$BASE_DOMAIN}, https://swarmci-api.{$BASE_DOMAIN} {
+    reverse_proxy 40.160.241.64:8080 {
+        flush_interval -1
+    }
+}

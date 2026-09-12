@@ -1,0 +1,11 @@
+{
+  "name": "Penpot #11656 · nested component reset",
+  "url": "http://localhost:9001",
+  "issue_url": "https://github.com/penpot/penpot/issues/11656",
+  "objective": "In a fresh test file, create a blue button component and an orange button component. Create a parent card component containing an intermediate group with a copy of the blue button inside it. Duplicate the parent card. In that copy, select the nested blue button, swap to the orange component, then right-click and Reset overrides. Expected: original blue component restored and the editor remains usable. Compare the same sequence without the intermediate group. The report mentions invalid-shape-id and missing swap slot. Only report what is observed.",
+  "isolation": "browser",
+  "seed_ready": false,
+  "failure_selector": ".exception-page, .error-page",
+  "assertions": [],
+  "notes": "Unvalidated target template. Start Penpot, sign into a disposable test account, prepare a file URL, validate failure selectors and add a positive assertion for the restored original component. Set seed_ready only after setup is reproducible. Use one worker until backend/account isolation is configured."
+}
