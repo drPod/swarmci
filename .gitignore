@@ -16,3 +16,4 @@ public/
 conversation-*.md
 .vercel
 .env*
+!.env.example
